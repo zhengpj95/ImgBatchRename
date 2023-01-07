@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>图片批量命名</title>
+	<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+</head>
+
+<body>
+	<h1>图片批量命名</h1>
+	<p>
+		We are using Node.js <span id="node-version"></span>,
+		Chromium <span id="chrome-version"></span>,
+		and Electron <span id="electron-version"></span>.
+	</p>
+	<p>
+		图片批零命名规则，根据上传的图片资源，使用【图片前缀名称_x】命名，x数字从1开始，一共生成n张图片资源。（n为批量命名数量框数值）
+	</p>
+
+	<br>
+	请选择图片：<input type="file" id="input_img">
+	<br>
+	<br>
+	<!-- 展示上传的图片 -->
+	<div id="show_img"></div>
+	<br>
+	<br>
+	图片前缀名称：<input type="text" id="img_pre_name" value="lingpo_">
+	<br>
+	批量命名数量：<input type="text" id="img_cnt" value="10">
+	<button id="btn_submit">批量命名</button>
+	<br>
+
+</body>
+<script>
+	// 上传的图片资源路径
+	var imgPath = ''
+
+	// 上传图片资源
+	var imgElement = document.getElementById('input_img');
+	imgElement.onchange = function () {
+		var file = this.files;
+		if (!file || !file[0]) {
+			return;
+		}
+		imgPath = file[0].path;
+		// console.log(file[0]);
+		var reader = new FileReader();
+		reader.readAsDataURL(file[0]);
+		reader.onload = function () {
+			var img = document.createElement("img")
+			img.width = 200;
+			img.height = 200;
+			img.src = reader.result;
+			var imgDiv = document.getElementById('show_img');
+			while (imgDiv.hasChildNodes()) {
+				imgDiv.removeChild(imgDiv.firstChild)
+			}
+			imgDiv.append(img)
+		}
+	}
+
+	// 确定批量命名
+	let btnElement = document.getElementById('btn_submit');
+	btnElement.addEventListener('click', function () {
+		if (!imgPath) {
+			console.log(`请上传图片资源`);
+			return;
+		}
+		let preNameEle = document.getElementById('img_pre_name')
+		if (!preNameEle.value) {
+			console.log(`请输入图片前缀名称`);
+			return;
+		}
+		let cntEle = document.getElementById('img_cnt');
+		if (!cntEle.value) {
+			console.log(`请输入批量命名数量`);
+			return;
+		}
+		window.main.batchRename(imgPath, preNameEle.value, cntEle.value)
+	}, false)
+</script>
+
+</html>
