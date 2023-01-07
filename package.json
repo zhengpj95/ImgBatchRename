@@ -4,18 +4,17 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "electron ./",
-		"package": "electron-packager . ImgBatchRename --platform=win32 --arch=x64 --out=./output --app-version=0.0.1 --overwrite"
+		"package": "electron-packager . ImgBatchRename --platform=win32 --arch=x64 --out=./output --app-version=0.0.1 --overwrite --ignore=node_modules"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"description": "",
 	"dependencies": {
-		"@types/node": "^18.11.18",
-		"electron": "^22.0.0",
-		"images": "^3.2.4"
+		"@types/node": "^18.11.18"
 	},
 	"devDependencies": {
+		"electron": "^22.0.0",
 		"electron-packager": "^17.1.1"
 	}
 }
