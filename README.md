@@ -7,3 +7,7 @@
 ## 运行
 
 `npm start`
+
+## 界面
+
+![img](./imgs/img_batch_rename.png)
